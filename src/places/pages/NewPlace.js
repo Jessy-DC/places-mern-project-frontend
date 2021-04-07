@@ -7,7 +7,7 @@ import { useForm } from "../../shared/hooks/form-hook";
 import './PlaceForm.css'
 
 const NewPlace = () => {
-    const [formState, inputHandler] = useForm({
+    const [formState, inputHandler, setFormData] = useForm({
         title: {
             value: '',
                 isValid: false
