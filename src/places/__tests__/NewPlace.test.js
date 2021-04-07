@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import NewPlace from '../pages/NewPlace';
 import React from "react";
-import Input from "../../shared/components/FormElements/Input";
 
 test('renders NewPlace Works !', () => {
     render(<NewPlace />);
