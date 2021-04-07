@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
+import Card from "../../shared/components/UIElements/Card";
 import {VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH} from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
 
@@ -43,27 +44,29 @@ const UpdatePlace = props => {
 
     const [formState, inputHandler, setFormData] = useForm({
         title: {
-            value: identifiedPlace.title,
-            isValid: true
+            value: '',
+            isValid: false
         },
         description: {
-            value: identifiedPlace.description,
-            isValid: true
+            value: '',
+            isValid: false
         }
-    }, true)
+    }, false)
 
     useEffect(() => {
-        setFormData({
-            title: {
-                value: identifiedPlace.title,
-                isValid: true
-            },
-            description: {
-                value: identifiedPlace.description,
-                isValid: true
-            }
-        })
-        setIsLoading(false)
+        if (identifiedPlace) {
+            setFormData({
+                title: {
+                    value: identifiedPlace.title,
+                    isValid: true
+                },
+                description: {
+                    value: identifiedPlace.description,
+                    isValid: true
+                }
+            }, true)
+            setIsLoading(false)
+        }
     }, [setFormData, identifiedPlace])
 
     const placeUpdateSubmitHandler = event => {
@@ -74,7 +77,9 @@ const UpdatePlace = props => {
     if (!identifiedPlace) {
         return (
             <div className="center">
-                <h2>Could not find place!</h2>
+                <Card >
+                    <h2>Could not find place!</h2>
+                </Card>
             </div>
         )
     }
