@@ -6,24 +6,22 @@ import {useHttpClient} from "../../shared/hooks/http-hook";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 
-
 const UserPlaces = () => {
-   const userId = useParams().userId;
    const { isLoading, error, sendRequest, clearError } = useHttpClient();
-    const [loadedPlaces, setLoadedPlaces] = useState();
-
+   const [loadedPlaces, setLoadedPlaces] = useState();
+   const userId = useParams().userId;
     useEffect(() => {
         const fetchPlaces = async () => {
             try {
                 const responseData = await sendRequest(
-                    'http://localhost:5000/api/places/user/60807fddcaeff04160e867e0'
+                    `http://localhost:5000/api/places/user/${userId}`
                 );
 
                 setLoadedPlaces(responseData.places);
             } catch (err) {}
         };
         fetchPlaces();
-    }, [sendRequest]);
+    }, [sendRequest, userId]);
 
 
    return (
@@ -34,7 +32,7 @@ const UserPlaces = () => {
                    <LoadingSpinner />
                </div>
            )}
-           {isLoading && loadedPlaces && <PlaceList items={loadedPlaces} /> }
+           {!isLoading && loadedPlaces && <PlaceList items={loadedPlaces} /> }
        </React.Fragment>
    )
 }
