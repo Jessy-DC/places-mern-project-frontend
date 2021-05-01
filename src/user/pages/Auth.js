@@ -4,6 +4,7 @@ import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import ImageUpload from "../../shared/components/FormElements/ImageUpload";
 import Card from "../../shared/components/UIElements/Card";
 import {VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE} from '../../shared/util/validators'
 import { useForm } from "../../shared/hooks/form-hook";
@@ -85,16 +86,18 @@ const Auth = () => {
                     <h2>Login Required</h2>
                     <hr />
                     <form onSubmit={authSubmitHandler}>
-                        {!isLoginMode &&
-                        <Input
-                            element="input"
-                            id="name"
-                            type="text"
-                            label="Your name"
-                            validators={[VALIDATOR_REQUIRE()]}
-                            errorText="Please enter a name"
-                            onInput={inputHandler}
-                        />}
+                        {!isLoginMode && (
+                            <Input
+                                element="input"
+                                id="name"
+                                type="text"
+                                label="Your name"
+                                validators={[VALIDATOR_REQUIRE()]}
+                                errorText="Please enter a name"
+                                onInput={inputHandler}
+                            />
+                        )}
+                        {!isLoginMode && <ImageUpload id="image" center />}
                         <Input
                             id="email"
                             element="input"
